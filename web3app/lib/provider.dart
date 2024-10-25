@@ -5,7 +5,7 @@ import 'package:bip39/bip39.dart'
 import 'package:ed25519_hd_key/ed25519_hd_key.dart'; // Library for key derivation.
 import 'package:hex/hex.dart'; // Library for hex encoding/decoding.
 import 'package:flutter/foundation.dart'; // Library for Flutter framework essentials.
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'; //Library to manage key-value storage.
 
 /// Abstract class defining the blueprint for wallet address services.
 abstract class WalletAddressService {

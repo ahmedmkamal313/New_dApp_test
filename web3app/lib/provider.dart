@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart'; // Flutter framework for building UI.
 import 'package:web3dart/web3dart.dart'; // Library for interacting with Ethereum blockchain.
-import 'package:bip39/bip39.dart' as bip39; // Library for generating mnemonic phrases.
+import 'package:bip39/bip39.dart'
+    as bip39; // Library for generating mnemonic phrases.
 import 'package:ed25519_hd_key/ed25519_hd_key.dart'; // Library for key derivation.
 import 'package:hex/hex.dart'; // Library for hex encoding/decoding.
 import 'package:flutter/foundation.dart'; // Library for Flutter framework essentials.
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Abstract class defining the blueprint for wallet address services.
 abstract class WalletAddressService {
@@ -19,6 +21,27 @@ abstract class WalletAddressService {
 
 /// Concrete implementation of WalletAddressService.
 class WalletProvider extends ChangeNotifier implements WalletAddressService {
+  /// Variable for the private key
+  String?
+      privateKey; // This variable stores the private key. The '?' means it can be nullable.
+
+  /// Method to load the private key from shared preferences.
+  Future<void> loadPrivateKey() async {
+    SharedPreferences prefs = await SharedPreferences
+        .getInstance(); // Getting an instance of SharedPreferences.
+    privateKey = prefs.getString(
+        'privateKey'); // Retrieving the private key stored under the key 'privateKey'.
+  }
+
+  /// Method to set and store the private key in shared preferences.
+  Future<void> setPrivateKey(String privateKey) async {
+    SharedPreferences prefs = await SharedPreferences
+        .getInstance(); // Getting an instance of SharedPreferences.
+    await prefs.setString('privateKey',
+        privateKey); // Storing the private key under the key 'privateKey'.
+    notifyListeners(); // Notifying listeners to update the UI or perform necessary actions.
+  }
+
   @override
   String generateMnemonic() {
     // Generate a mnemonic phrase using the bip39 library.

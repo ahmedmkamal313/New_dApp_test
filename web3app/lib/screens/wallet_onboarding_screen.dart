@@ -48,8 +48,9 @@ class WalletOptionsScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: (){
                 Navigator.push(
-                  context, MaterialPageRoute(builder: context => const Wallet) )
+                  context, MaterialPageRoute(builder: context => const Wallet) );
               }
+            )
             
           ],
         ),
